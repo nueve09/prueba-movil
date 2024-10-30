@@ -4,6 +4,20 @@
 ## Objetivo
 Crear una aplicación en React Native con autenticación de usuario y funcionalidades de gestión de tareas. Los usuarios deben iniciar sesión con un correo electrónico y contraseña predefinidos y luego poder visualizar, filtrar, agregar y eliminar tareas obtenidas de una API externa.
 
+## IMPORTANTE
+
+1. Asegúrate de tener `git` y tus herramientas de desarrollo instaladas.
+2. Se solicita crear la aplicación utilizando `React Native`.
+4. **Antes de comenzar a programar:**
+   * Se requiere de una cuenta de `GitHub` para realizar este ejercicio.
+   * Realiza un `fork` de [este repositorio](https://github.com/nueve09/prueba-movil).
+   * Clona el fork a tu máquina local `git clone git@github.com:USERNAME/FORKED-PROJECT.git`.
+   * Crea un `branch` en tu repositorio con tu nombre completo.
+6. Realiza los `commits` necesarios.
+7. Crea un archivo markdown en la raiz del proyecto y explícanos lo que hiciste.
+8. Envía un `pull request` __al branch con tu nombre__.
+9. Notifica que has terminado a la siguiente dirección de correo electrónico: recursos_humanos@nueve09.mx, CC: jaraujo@nueve09.mx, mjimenez@nueve09.mx.
+
 ## Instrucciones del Proyecto
 
 ### Requisitos
