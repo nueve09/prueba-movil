@@ -68,7 +68,6 @@ export default function EditTaskScreen({ route, navigation, setUser }) {
 
   const handleLogout = async () => {
     try {
-      console.log("Cerrando sesión...");
       await AsyncStorage.removeItem("user");
       setUser(null);
       navigation.navigate("Login");

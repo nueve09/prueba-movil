@@ -67,13 +67,11 @@ Para ejecutar esta aplicación, asegúrate de tener instalados los siguientes pr
 Luego, sigue estos pasos:
 
 1. Clona el repositorio:
-
    ```bash
    git clone <url_del_repositorio>
    cd <nombre_del_repositorio>
-
    ```
-
+   
 2. Navega al folder `TaskApp` que esta dentro de `prueba-movil`:
    ```bash
    cd TaskApp

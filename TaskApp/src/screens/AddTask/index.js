@@ -54,7 +54,6 @@ export default function AddTaskScreen({ route, setUser, navigation }) {
     try {
       const createdTask = await saveTask(newTask);
       Alert.alert("Éxito", "Tarea agregada con éxito.");
-      console.log("Tarea creada:", createdTask);
 
       if (route.params?.onGoBack) {
         route.params.onGoBack();
@@ -72,7 +71,6 @@ export default function AddTaskScreen({ route, setUser, navigation }) {
 
   const handleLogout = async () => {
     try {
-      console.log("Cerrando sesión...");
       await AsyncStorage.removeItem("user");
       setUser(null);
       navigation.navigate("Login");

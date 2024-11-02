@@ -110,7 +110,6 @@ export default function TaskListScreen({ navigation, setUser, route }) {
 
   const handleLogout = async () => {
     try {
-      console.log("Cerrando sesión...");
       await AsyncStorage.removeItem("user");
       setUser(null);
       navigation.navigate("Login");

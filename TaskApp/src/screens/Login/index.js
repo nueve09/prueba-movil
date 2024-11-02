@@ -33,7 +33,7 @@ export default function LoginScreen({ setUser, navigation }) {
           navigation.navigate("Tasks", { userId: user.userId });
         }
       } catch (error) {
-        console.log("Error al recuperar la sesión del usuario", error);
+        console.error("Error al recuperar la sesión del usuario", error);
       }
     };
 
