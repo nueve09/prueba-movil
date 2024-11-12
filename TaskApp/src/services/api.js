@@ -66,7 +66,6 @@ export const addTaskToStorage = async (newTask) => {
 
     await AsyncStorage.setItem("tasks", JSON.stringify(updatedTasks));
 
-    console.log("Tarea agregada con éxito:", taskWithId);
   } catch (error) {
     console.error("Error al agregar la tarea:", error);
   }

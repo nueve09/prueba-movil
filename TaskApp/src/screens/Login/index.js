@@ -35,12 +35,10 @@ export default function LoginScreen({ navigation, route }) {
   }, [route.params?.clearInputs]);
 
   const handleLogin = async () => {
-    console.log("Datos de login:", email, password);
     setLoading(true);
 
     try {
       const isLogged = await login(email, password);
-      console.log("Usuario autenticado:", isLogged);
 
       if (!isLogged || !isLogged.userId) {
         throw new Error("No se pudo obtener el usuario");
