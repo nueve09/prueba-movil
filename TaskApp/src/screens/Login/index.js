@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -10,52 +10,48 @@ import {
   Dimensions,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import users from "../../data/users.json";
+import AuthContext from "../../context/AuthContext";
 
-import login from "../../assets/icons/arrowRight.png";
+import loginIcon from "../../assets/icons/arrowRight.png";
 
 import styles from "./styles";
 
-export default function LoginScreen({ setUser, navigation }) {
+export default function LoginScreen({ navigation, route }) {
+  const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const checkUserSession = async () => {
-      try {
-        const storedUser = await AsyncStorage.getItem("user");
-        if (storedUser) {
-          const user = JSON.parse(storedUser);
-          setUser(user);
-          navigation.navigate("Tasks", { userId: user.userId });
-        }
-      } catch (error) {
-        console.error("Error al recuperar la sesión del usuario", error);
-      }
-    };
+  const clearInputs = () => {
+    setEmail("");
+    setPassword("");
+  };
 
-    checkUserSession();
-  }, []);
+  useEffect(() => {
+    if (route.params?.clearInputs) {
+      clearInputs();
+    }
+  }, [route.params?.clearInputs]);
 
   const handleLogin = async () => {
+    console.log("Datos de login:", email, password);
     setLoading(true);
 
-    const user = users.find(
-      (user) => user.email === email && user.password === password
-    );
+    try {
+      const isLogged = await login(email, password);
+      console.log("Usuario autenticado:", isLogged);
 
-    setLoading(false);
-    if (user) {
-      setUser(user);
+      if (!isLogged || !isLogged.userId) {
+        throw new Error("No se pudo obtener el usuario");
+      }
 
-      await AsyncStorage.setItem("user", JSON.stringify(user));
-
-      navigation.navigate("Tasks", { userId: user.userId });
-    } else {
-      Alert.alert("Error", "Credenciales incorrectas.");
+      setLoading(false);
+      navigation.navigate("Tasks", { userId: isLogged.userId });
+    } catch (error) {
+      setLoading(false);
+      console.error("Error de login:", error);
+      Alert.alert("Error", error.message);
     }
   };
 
@@ -101,7 +97,7 @@ export default function LoginScreen({ setUser, navigation }) {
       ) : (
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Entrar</Text>
-          <Image source={login} style={styles.loginIcon} />
+          <Image source={loginIcon} style={styles.loginIcon} />
         </TouchableOpacity>
       )}
     </View>

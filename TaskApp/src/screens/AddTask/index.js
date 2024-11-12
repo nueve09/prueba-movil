@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -11,13 +11,17 @@ import { Picker } from "@react-native-picker/picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LinearGradient from "react-native-linear-gradient";
 
+import AuthContext from "../../context/AuthContext";
+
 import { logoutIcon, backIcon } from "../../helpers/index";
 
-import { saveTask } from "../../services/api";
+import { saveTask, addTaskToStorage } from "../../services/api";
 
 import styles from "./styles";
 
-export default function AddTaskScreen({ route, setUser, navigation }) {
+export default function AddTaskScreen({ route, navigation }) {
+  const { logout } = useContext(AuthContext);
+
   const [title, setTitle] = useState("");
   const [userId, setUserId] = useState(null);
   const [status, setStatus] = useState("");
@@ -38,7 +42,7 @@ export default function AddTaskScreen({ route, setUser, navigation }) {
     }
   }, [route.params]);
 
-  const handleSaveTask = async () => {
+  const handleAddTask = async () => {
     if (!title) {
       Alert.alert("Error", "Por favor ingresa un título para la tarea.");
       return;
@@ -53,6 +57,8 @@ export default function AddTaskScreen({ route, setUser, navigation }) {
 
     try {
       const createdTask = await saveTask(newTask);
+      await addTaskToStorage(createdTask);
+
       Alert.alert("Éxito", "Tarea agregada con éxito.");
 
       if (route.params?.onGoBack) {
@@ -72,7 +78,7 @@ export default function AddTaskScreen({ route, setUser, navigation }) {
   const handleLogout = async () => {
     try {
       await AsyncStorage.removeItem("user");
-      setUser(null);
+      logout();
       navigation.navigate("Login");
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
@@ -129,7 +135,7 @@ export default function AddTaskScreen({ route, setUser, navigation }) {
       <View style={{ flex: 1 }} />
 
       <View style={styles.containerButton}>
-        <TouchableOpacity style={styles.buttonSave} onPress={handleSaveTask}>
+        <TouchableOpacity style={styles.buttonSave} onPress={handleAddTask}>
           <Text style={styles.buttonTextSave}>Guardar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonCancel} onPress={handleCancel}>

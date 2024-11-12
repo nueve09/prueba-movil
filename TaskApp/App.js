@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { AuthContext } from "./src/context/AuthContext";
+import { AuthProvider } from "./src/context/AuthContext";
 
 import LoginScreen from "./src/screens/Login";
 import TasksListScreen from "./src/screens/Tasks";
@@ -11,34 +13,43 @@ import EditTaskScreen from "./src/screens/EditTask";
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [user, setUser] = useState(null);
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+}
 
-  useEffect(() => {
-    const checkUserSession = async () => {
-      const storedUser = await AsyncStorage.getItem("user");
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
-      }
-    };
+function AppContent() {
+  const { user, loading } = useContext(AuthContext);
 
-    checkUserSession();
-  }, []);
+  if (loading) {
+    return null;
+  }
 
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={user ? "Tasks" : "Login"}>
-        <Stack.Screen name="Login" options={{ headerShown: false }}>
-          {(props) => <LoginScreen {...props} setUser={setUser} />}
-        </Stack.Screen>
-        <Stack.Screen name="Tasks" options={{ headerShown: false }}>
-          {(props) => <TasksListScreen {...props} setUser={setUser} />}
-        </Stack.Screen>
-        <Stack.Screen name="AddTask" options={{ headerShown: false }}>
-          {(props) => <AddTaskScreen {...props} setUser={setUser} />}
-        </Stack.Screen>
-        <Stack.Screen name="EditTask" options={{ headerShown: false }}>
-          {(props) => <EditTaskScreen {...props} setUser={setUser} />}
-        </Stack.Screen>
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Tasks"
+          component={TasksListScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AddTask"
+          component={AddTaskScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="EditTask"
+          component={EditTaskScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

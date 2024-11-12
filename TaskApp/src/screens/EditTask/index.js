@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -11,13 +11,28 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Picker } from "@react-native-picker/picker";
 import LinearGradient from "react-native-linear-gradient";
 
+import AuthContext from "../../context/AuthContext";
+
 import { logoutIcon, backIcon } from "../../helpers/index";
 
-import { updateTask } from "../../services/api";
+import { updateTask, updateTaskInStorage } from "../../services/api";
 
 import styles from "./styles";
 
-export default function EditTaskScreen({ route, navigation, setUser }) {
+const isTaskInStorage = async (taskId) => {
+  try {
+    const storedTasks = await AsyncStorage.getItem("tasks");
+    const tasks = storedTasks ? JSON.parse(storedTasks) : [];
+    return tasks.some((task) => task.id === taskId);
+  } catch (error) {
+    console.error("Error al verificar la existencia de la tarea:", error);
+    return false;
+  }
+};
+
+export default function EditTaskScreen({ route, navigation }) {
+  const { logout } = useContext(AuthContext);
+
   const { task } = route.params;
 
   const initialStatus = task.completed ? "Completada" : "Pendiente";
@@ -37,7 +52,13 @@ export default function EditTaskScreen({ route, navigation, setUser }) {
     };
 
     try {
-      await updateTask(updatedTask);
+      const isInStorage = await isTaskInStorage(task.id);
+
+      if (isInStorage) {
+        await updateTaskInStorage(updatedTask);
+      } else {
+        await updateTask(updatedTask);
+      }
       Alert.alert("Éxito", "Tarea editada exitosamente.");
       navigation.navigate("Tasks", { updatedTask });
     } catch (error) {
@@ -69,7 +90,7 @@ export default function EditTaskScreen({ route, navigation, setUser }) {
   const handleLogout = async () => {
     try {
       await AsyncStorage.removeItem("user");
-      setUser(null);
+      logout();
       navigation.navigate("Login");
     } catch (error) {
       console.error("Error al cerrar sesión:", error);

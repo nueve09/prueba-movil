@@ -1,4 +1,3 @@
-// components/TaskListHeader.js
 import React from "react";
 import { View, Text, TextInput, Image, TouchableOpacity } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
@@ -9,7 +8,13 @@ import { watch, calendar } from "../../helpers/index";
 
 import styles from "./styles";
 
-const Gradient = ({ onLogout, searchTerm, setSearchTerm, onAddTask }) => {
+const Gradient = ({
+  onLogout,
+  searchTerm,
+  setSearchTerm,
+  onAddTask,
+  clearInputs,
+}) => {
   return (
     <LinearGradient
       colors={["#CDEBF6", "#F2F9FC", "#FFFFFF"]}
@@ -17,7 +22,7 @@ const Gradient = ({ onLogout, searchTerm, setSearchTerm, onAddTask }) => {
       end={{ x: 1, y: 1 }}
       style={styles.gradientContainer}
     >
-      <Header onLogout={onLogout} />
+      <Header onLogout={onLogout} clearInputs={clearInputs} />
 
       <View style={styles.containerImgs}>
         <Image source={watch} style={styles.taskImage} resizeMode="contain" />
