@@ -14,7 +14,7 @@ export const usersData = [
   {email: 'user10@example.com', password: 'us3r10pswd', userId: 10},
 ];
 
-export const login = (email: string, password: string) => {
+export const login = (email: string, password: string): Promise<User|string> => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const response = findUser(email, password);
@@ -23,7 +23,7 @@ export const login = (email: string, password: string) => {
       } else {
         resolve(response);
       }
-    }, 1000);
+    }, 2000);
   });
 };
 
