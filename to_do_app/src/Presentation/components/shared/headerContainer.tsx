@@ -16,10 +16,10 @@ interface HeaderProps {
   }
 
 const HeaderContainer = ({children , scrollY = new Animated.Value(0),title, navigation}: HeaderProps) => {
-    const { headerHeight, imageHeight ,imageOpacity} = useTaskListAnimations(scrollY)
+    const { headerHeight} = useTaskListAnimations(scrollY)
   const {logout} = useLogout();
   return (
-    <Animated.View style={[styles.container, {height:headerHeight}]}>
+    <Animated.View style={[styles.container,styles.shadow, {height:headerHeight}]}>
       <View style={styles.titlerow}>
         <TouchableOpacity onPress={()=>navigation.goBack()} style={styles.backIcon}>
             <Image source={arrowLeft} style={styles.backImage}/>
@@ -38,7 +38,7 @@ const HeaderContainer = ({children , scrollY = new Animated.Value(0),title, navi
 
   const styles = StyleSheet.create({
     container: {
-      backgroundColor: 'red',
+      backgroundColor: Colors.white,
       borderBottomLeftRadius: 40,
       borderBottomRightRadius: 40,
       paddingHorizontal: 20,
@@ -50,6 +50,17 @@ const HeaderContainer = ({children , scrollY = new Animated.Value(0),title, navi
       right: 0,
       zIndex: 1,
     },
+    shadow:{
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 0,
+        },
+        shadowOpacity: .8,
+        shadowRadius: 2,
+    
+        elevation: 5,
+      },
     titlerow: {
       flexDirection: 'row',
       justifyContent: 'center',
