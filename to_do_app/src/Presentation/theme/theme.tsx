@@ -10,7 +10,8 @@ export const METRICS = {
 
 export const Colors = {
     primary: '#5F33E1',
-    accent: '#cccccc'
+    accent: '#cccccc',
+    white: '#ffffff'
 }
 
 export enum ButtonType  {
