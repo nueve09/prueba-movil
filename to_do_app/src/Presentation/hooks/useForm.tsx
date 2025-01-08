@@ -1,18 +1,18 @@
 import { useState } from "react";
 
 export const useForm = () => {
-    const [login, setLogin] = useState({
+    const [loginForm, setLogin] = useState({
         email: '',
         password: '',
       });
     
-      const setEmail = (val: string) => setLogin({...login, email: val});
+      const setEmail = (val: string) => setLogin({...loginForm, email: val});
       
-      const setPassword = (val: string) => setLogin({...login, password: val});
+      const setPassword = (val: string) => setLogin({...loginForm, password: val});
 
 
       return {
-        login,
+        loginForm,
         setEmail,
         setPassword,
       };

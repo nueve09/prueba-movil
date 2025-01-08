@@ -1,10 +1,10 @@
 import {
-  View,
-  Text,
   KeyboardAvoidingView,
   Platform,
+  View,
 } from 'react-native';
 import LoginForm from '../components/login/loginForm';
+import MainLogo from '../components/login/mainLogo';
 
 export default function Login() {
 
@@ -13,12 +13,12 @@ export default function Login() {
       style={{flex: 1}}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
 
-        {/* TODO: Crear un componente para la imagen */}
-      <View style={{flex: 1}}>
-        <Text>Organizador de tareas</Text>
-      </View>
+       
+       <View style={{flex:1}}>
+        <MainLogo/>
 
-      <LoginForm />
+        <LoginForm />
+       </View>
     </KeyboardAvoidingView>
   );
 }
