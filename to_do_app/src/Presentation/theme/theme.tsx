@@ -18,6 +18,3 @@ export enum ButtonType  {
     Filled = 'filled'
 }
 
-export const purpleShapeButton = require('../../assets/roundedButton.png')
-export const outlinePurpleShapeButton = require('../../assets/outlineRoundedButton.png')
-export const logout = require('../../assets/logout.png')
