@@ -8,6 +8,7 @@ import { useTaskViewModel } from '../../viewmodels/useTaskViewModel'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from '../../navigation/StackNavigation'
+import { Colors } from '../../theme/theme'
 
 interface headerProps {
   scrollY: Animated.Value;
@@ -16,23 +17,21 @@ interface headerProps {
 const animatedHeader = ({scrollY}:headerProps) => {
 
   const { headerHeight, imageHeight ,imageOpacity} = useTaskListAnimations(scrollY)
-  const { setValueToFind, valueToFind} = useTaskViewModel();
-  const {logout} = useLogout();
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList,'Task'>>()
+  const { setValueToFind, valueToFind, requestExitConfirmation } = useTaskViewModel();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList,'Task'>>();
 
   return (
-    <Animated.View style={[styles.container, {height: headerHeight}]}>
+    <Animated.View style={[styles.container,styles.shadow, {height: headerHeight}]}>
 
       <View style={styles.titlerow}>
         <Text style={styles.title}>Organizador de Tareas</Text>
-        <TouchableOpacity style={styles.icon} onPress={logout}>
+        <TouchableOpacity style={styles.icon} onPress={requestExitConfirmation}>
           <Image source={logoutIcon} style={styles.imageLogout} />
         </TouchableOpacity>
       </View>
 
       <Animated.Image source={shcedule} style={[styles.imageSchedule,{ opacity: imageOpacity,height: imageHeight  }]} />
 
-      
       <View>
         <CustomTextInput
           placeholder="Buscar tarea"
@@ -48,7 +47,8 @@ const animatedHeader = ({scrollY}:headerProps) => {
 
 const styles = StyleSheet.create({
     container:{
-      backgroundColor:'red',
+      backgroundColor:Colors.white,
+      margin:0,
       borderBottomLeftRadius:40,
       borderBottomRightRadius:40,
       paddingHorizontal:20,
@@ -60,6 +60,17 @@ const styles = StyleSheet.create({
       left: 0,
       right: 0,
       zIndex: 1,
+    },
+    shadow:{
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 0,
+      },
+      shadowOpacity: .8,
+      shadowRadius: 2,
+  
+      elevation: 5,
     },
     titlerow:{
       flexDirection:'row',

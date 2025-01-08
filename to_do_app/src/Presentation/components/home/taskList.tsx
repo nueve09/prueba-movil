@@ -26,7 +26,7 @@ const TaskList = ({scrollY}:TaskListProps) => {
         data={filteredList}
         renderItem={(task)=>
           <TaskCard task={task.item} 
-          onRemove={(id)=>{removeItem(id)}} 
+          onRemove={(id,name)=>{removeItem(id,name)}} 
           onEdit={() => {navigation.navigate('Task',{task})}}
           />}
         onScroll={Animated.event(

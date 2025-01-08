@@ -6,7 +6,7 @@ import { Colors } from '../../theme/theme'
 interface TaskCardProps {
     task:Task|null;
     onEdit:()=>void;
-    onRemove:(id:number)=>void;
+    onRemove:(id:number,name:string)=>void;
 }
 
 const TaskCard = ({task,onRemove ,onEdit}:TaskCardProps) => {
@@ -21,7 +21,7 @@ const TaskCard = ({task,onRemove ,onEdit}:TaskCardProps) => {
         <TouchableOpacity onPress={()=>onEdit()}>
           <Image source={edit}/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>onRemove(task.id)}>
+        <TouchableOpacity onPress={()=>onRemove(task.id,task.title)}>
           <Image source={remove}/>
         </TouchableOpacity>
       </View>
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     alignItems:'center',
     paddingHorizontal:20,
     borderRadius:20,
-    borderWidth:1,
+    borderWidth:2,
     borderColor:'#dcdcdc'
   },
   buttons:{

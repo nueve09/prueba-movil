@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store/store';
 import { filterList, removeTask } from '../store/slices/task/taskSlice';
 import { Task } from '../../Domain/entities/Task';
 import { getTaskList } from '../store/slices/task/thunks';
+import { showModal } from '../store/slices/modal/modalSlice';
 
 export const useTaskViewModel = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -32,18 +33,34 @@ export const useTaskViewModel = () => {
     dispatch(filterList({taskList: newArr}));
   };
 
-  const removeItem = (taskId:number) => {
-    const newFilteredList = filteredList.filter(task=> task.id !== taskId)
-    const newList = taskList.filter(task=> task.id !== taskId)
-
-    dispatch(removeTask({filteredList:newFilteredList,taskList:newList}))
+  const removeItem = (taskId:number,taskName:string) => {
+    dispatch(showModal({
+        visible:true,
+        title:'Estas apunto de eliminar esta tarea.',
+        message:`Estas seguro que deseas eliminat la tarea "${taskName}"`,
+        actionText:'Eliminar',
+        params:{taskId,taskName},
+        action:'removeItem'
+    }))
   };
+
+  const requestExitConfirmation = () =>{
+    dispatch(showModal({
+        visible:true,
+        title:'Estas apunto de cerrar sesion.',
+        message:'Estas seguro que deseas cerrar tu sesion?',
+        actionText:'Salir',
+        params:null,
+        action:'logout'
+    }))
+  }
   
 
   return {
     setValueToFind,
     find,
     removeItem,
+    requestExitConfirmation,
     valueToFind,
     filteredList,
     error,

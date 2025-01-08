@@ -1,7 +1,9 @@
-import { useState } from 'react';
 import { View, Text, StyleSheet,  TouchableOpacity } from 'react-native'
 import Modal from "react-native-modal";
 import { Colors, METRICS } from '../../theme/theme';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { useGloblaModalViewModel } from './useGloblaModalViewModel';
 
 const {height, width} = METRICS;
 
@@ -11,18 +13,19 @@ interface ActionButtonProps {
 }
 const ActionButton = ({label,action}:ActionButtonProps) => {
   return(
-    <TouchableOpacity onPress={()=>action()} style={styles.actionButton}>
+    <TouchableOpacity onPress={action} style={styles.actionButton}>
       <Text style={styles.labelActionButton}>{label}</Text>
     </TouchableOpacity>
   )
 }
 
 const GlobalModal = () => {
-    const [isModalVisible, setIsModalVisible] = useState(true);
+    const { visible , message ,actionText , title, action } = useSelector((state:RootState) => state.modal)
+    const { actionsHandler } = useGloblaModalViewModel()
 
   return (
     <Modal
-    isVisible={isModalVisible}
+    isVisible={visible}
     deviceWidth={height}
     deviceHeight={width}
     style={{flex:1, justifyContent:'center'}}
@@ -31,14 +34,14 @@ const GlobalModal = () => {
     <View style={{ flex: 1 , justifyContent:'center'}}>
       <View style={[styles.contianer,styles.shadow]}>
         <View style={styles.title}>
-          <Text>TITLE</Text>
+          <Text>{ title } {action} </Text>
         </View>
         <View style={styles.content}>
-          <Text>HERE WILL BE THE content</Text>
+          <Text>{message}</Text>
         </View>
         <View style={styles.actions}>
-          <ActionButton label='Cancelar' action={()=>{setIsModalVisible(false)}}/>
-          <ActionButton label='Aceptar' action={()=>{}}/>
+          <ActionButton label='Cancelar' action={()=>actionsHandler['hide']()}/>
+          <ActionButton label={actionText} action={()=>actionsHandler[action]()}/>
         </View>
       </View>
     </View>
