@@ -1,17 +1,14 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
-import { logout, METRICS } from '../theme/theme';
-import CustomTextInput from '../components/shared/customTextInput';
-import CustomButton from '../components/shared/customButton';
-import Header from '../components/home/header';
-import List from '../components/home/taskList';
+import { View, StyleSheet, Animated } from 'react-native'
+import Header from '../components/home/animatedHeader';
 import TaskList from '../components/home/taskList';
+const HomeScreen = () => {
 
-const Home = () => {
+  const scrollY = new Animated.Value(0); 
+
   return (
     <View style={styles.container}>
-      <Header/>
-
-      <TaskList/>
+      <Header scrollY={scrollY} />
+      <TaskList scrollY={scrollY} />
     </View>
   )
 }
@@ -21,11 +18,5 @@ const styles = StyleSheet.create({
     flex:1
   }
 });
-const stylesList = StyleSheet.create({
-  container:{
-    flex:1
-  }
-});
 
-
-export default Home
+export default HomeScreen
