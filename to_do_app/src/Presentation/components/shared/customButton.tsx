@@ -1,10 +1,10 @@
 import {TouchableOpacity, Text, Image, StyleSheet} from 'react-native';
 import {
-  ButtonType,
-  Colors,
   outlinePurpleShapeButton,
   purpleShapeButton,
-} from '../../theme/theme';
+} from '../../theme/images';
+import { ButtonType, Colors } from '../../theme/theme';
+
 
 interface CustomButtonProps {
   label: string;

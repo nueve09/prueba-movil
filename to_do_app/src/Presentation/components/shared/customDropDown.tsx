@@ -2,29 +2,43 @@ import {View, TextInput, StyleSheet, TouchableOpacity, Text, Image} from 'react-
 import React, { useState } from 'react';
 import {Colors} from '../../theme/theme';
 import { hidePassword, showPassword } from '../../theme/images';
+import { Dropdown } from 'react-native-element-dropdown';
 
-interface CustomTextInputProps {
+const data = [
+    { label: 'Pendiente', value: false },
+    { label: 'Completado', value: true },
+];
+
+interface CustomDropDownProps {
   value: string;
   placeholder: string;
   password?:boolean;
   setValue: (newString: string) => void;
 }
 
-const CustomTextInput = ({
+const CustomDropDown = ({
   value,
   placeholder,
   setValue,
   password = false
-}: CustomTextInputProps) => {
+}: CustomDropDownProps) => {
   const [showPass, setShowPass] = useState(false)
   return (
     <View style={styles.inputContainer}>
-      <TextInput
-        secureTextEntry={password && !showPass}
+      <Dropdown
         placeholder={placeholder}
+        data={data}
+        labelField='label'
+        valueField='value'
+        onChange={(val)=>{console.log(val)}}
         style={styles.input}
         value={value}
         onChangeText={newValue => setValue(newValue)}
+        renderItem={(item)=>(
+            <View>
+                <Text>item</Text>
+            </View>
+        )}
       />
       {
         password &&
@@ -67,4 +81,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CustomTextInput;
+export default CustomDropDown;

@@ -1,15 +1,16 @@
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Text, ActivityIndicator } from 'react-native'
 import React from 'react'
 import CustomTextInput from '../shared/customTextInput'
 import CustomButton from '../shared/customButton'
 import { ButtonType } from '../../theme/theme'
 import { useLogin } from '../../hooks/useLogin'
 import { useForm } from '../../hooks/useForm'
+import ErrorLabel from '../shared/errorLabel'
 
 const LoginForm = () => {
 
-    const { submit , error } = useLogin();
-    const { setEmail , setPassword , login:{email,password} } = useForm(); 
+    const { submit , error , isLoading } = useLogin();
+    const { setEmail , setPassword , loginForm:{email,password} } = useForm(); 
 
   return (
     <View style={styles.form}>
@@ -24,13 +25,18 @@ const LoginForm = () => {
           value={password}
           setValue={(val)=>setPassword(val)}
         />
-        <CustomButton
-          disable={email==='' || password ==='' }
+        {
+            isLoading ? 
+            <ActivityIndicator/>
+            : 
+        <CustomButton 
+        //   disable={email==='' || password ==='' }
           onPress={()=>submit(email,password)}
-          label='Agregar'
+          label='Entrar'
           type={ButtonType.Filled}
-        />
-        {/* TODO: Agregar mensage de error */}
+        />}
+
+       <ErrorLabel error={error}/>
       </View>
   )
 }
@@ -39,7 +45,8 @@ const styles = StyleSheet.create({
     form:{
       paddingHorizontal:20,
       paddingBottom:100
-    }
+    },
+   
   });
 
 export default LoginForm
