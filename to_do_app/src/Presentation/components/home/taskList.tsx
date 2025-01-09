@@ -27,7 +27,7 @@ const TaskList = ({scrollY}:TaskListProps) => {
         renderItem={(task)=>
           <TaskCard task={task.item} 
           onRemove={(id,name)=>{removeItem(id,name)}} 
-          onEdit={() => {navigation.navigate('Task',{task})}}
+          onEdit={() => {navigation.navigate('Task',{task:task.item})}}
           />}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],

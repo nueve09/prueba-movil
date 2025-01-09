@@ -6,6 +6,7 @@ import { shcedule , logout as logoutIcon, arrowLeft} from '../../theme/images'
 import { Colors, METRICS } from '../../theme/theme';
 import { RootStackParamList } from '../../navigation/StackNavigation';
 import { StackNavigationProp } from '@react-navigation/stack';
+import LogoutButton from './logoutButton';
 
 
 interface HeaderProps {
@@ -21,13 +22,11 @@ const HeaderContainer = ({children , scrollY = new Animated.Value(0),title, navi
   return (
     <Animated.View style={[styles.container,styles.shadow, {height:headerHeight}]}>
       <View style={styles.titlerow}>
-        <TouchableOpacity onPress={()=>navigation.goBack()} style={styles.backIcon}>
+      <TouchableOpacity onPress={()=>navigation.goBack()} style={styles.backIcon}>
             <Image source={arrowLeft} style={styles.backImage}/>
         </TouchableOpacity>
         <Text style={styles.title}>{title}</Text>
-        <TouchableOpacity style={styles.icon} onPress={logout}>
-          <Image source={logoutIcon} style={styles.imageLogout} />
-        </TouchableOpacity>
+        <LogoutButton/>       
       </View>
         <View style={{flex:1,justifyContent:'center', alignItems:'center'}}>
         {children}

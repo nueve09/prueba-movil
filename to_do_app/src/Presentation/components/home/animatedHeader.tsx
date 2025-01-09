@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from '../../navigation/StackNavigation'
 import { Colors } from '../../theme/theme'
+import LogoutButton from '../shared/logoutButton'
 
 interface headerProps {
   scrollY: Animated.Value;
@@ -17,7 +18,7 @@ interface headerProps {
 const animatedHeader = ({scrollY}:headerProps) => {
 
   const { headerHeight, imageHeight ,imageOpacity} = useTaskListAnimations(scrollY)
-  const { setValueToFind, valueToFind, requestExitConfirmation } = useTaskViewModel();
+  const { setValueToFind, valueToFind } = useTaskViewModel();
   const navigation = useNavigation<StackNavigationProp<RootStackParamList,'Task'>>();
 
   return (
@@ -25,9 +26,7 @@ const animatedHeader = ({scrollY}:headerProps) => {
 
       <View style={styles.titlerow}>
         <Text style={styles.title}>Organizador de Tareas</Text>
-        <TouchableOpacity style={styles.icon} onPress={requestExitConfirmation}>
-          <Image source={logoutIcon} style={styles.imageLogout} />
-        </TouchableOpacity>
+        <LogoutButton/>
       </View>
 
       <Animated.Image source={shcedule} style={[styles.imageSchedule,{ opacity: imageOpacity,height: imageHeight  }]} />
@@ -90,7 +89,8 @@ const styles = StyleSheet.create({
     },
     imageSchedule:{
       alignSelf:'center',
-      marginVertical:10
+      marginVertical:10,
+      resizeMode:'contain'
     },
   })
 

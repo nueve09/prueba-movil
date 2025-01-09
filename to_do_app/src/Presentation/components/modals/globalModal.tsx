@@ -3,7 +3,7 @@ import Modal from "react-native-modal";
 import { Colors, METRICS } from '../../theme/theme';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { useGloblaModalViewModel } from './useGloblaModalViewModel';
+import { useGloblaModalViewModel } from '../../viewmodels/useGloblaModalViewModel';
 
 const {height, width} = METRICS;
 
