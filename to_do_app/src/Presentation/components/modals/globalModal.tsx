@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet,  TouchableOpacity } from 'react-native'
 import Modal from "react-native-modal";
-import { Colors, METRICS } from '../../theme/theme';
+import { Colors, GlobalFontFamily, METRICS } from '../../theme/theme';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { useGloblaModalViewModel } from '../../viewmodels/useGloblaModalViewModel';
@@ -39,10 +39,10 @@ const GlobalModal = ({action}:GlobalModalProps) => {
     <View style={{ flex: 1 , justifyContent:'center'}}>
       <View style={[styles.contianer,styles.shadow]}>
         <View style={styles.title}>
-          <Text>{ title } </Text>
+          <Text style={styles.titleLabel}>{ title } </Text>
         </View>
         <View style={styles.content}>
-          <Text>{message}</Text>
+          <Text style={styles.messageLabel}>{message}</Text>
         </View>
         <View style={styles.actions}>
           <ActionButton label='Cancelar' action={()=>hide()}/>
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
 
   contianer:{
     backgroundColor:Colors.white,
-    minWidth:'90%',
-    height:height * .5,
+    minWidth:'70%',
+    height:height * .45,
     borderRadius:20,
     borderColor:Colors.primary,
     borderWidth:3,
@@ -68,7 +68,18 @@ const styles = StyleSheet.create({
     padding:10
   },
   title:{
+    marginTop:20
+  },
+  titleLabel:{
+    fontFamily:GlobalFontFamily.lex_bold,
+    fontSize:15
     
+  },
+  messageLabel:{
+    fontFamily:GlobalFontFamily.lato_regular,
+    textAlign:'center',
+    fontSize:15
+
   },
   content:{
     flex:1,
@@ -98,10 +109,11 @@ const styles = StyleSheet.create({
     width:100,
     padding:10,
     alignItems:'center',
-    borderRadius:10
+    borderRadius:10,
   },
   labelActionButton:{
     color:Colors.white,
+    fontFamily:GlobalFontFamily.lex_medium,
     textAlign:'center'
   }
 });

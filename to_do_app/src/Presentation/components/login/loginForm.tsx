@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, ActivityIndicator } from 'react-native'
+import { View, StyleSheet, ActivityIndicator } from 'react-native'
 import React from 'react'
 import CustomTextInput from '../shared/customTextInput'
 import CustomButton from '../shared/customButton'
@@ -34,6 +34,7 @@ const LoginForm = () => {
           onPress={()=>submit(email,password)}
           label='Entrar'
           type={ButtonType.Filled}
+          showIcon={true}
         />}
 
        <ErrorLabel error={error}/>

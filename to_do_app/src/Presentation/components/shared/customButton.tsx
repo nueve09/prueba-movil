@@ -4,21 +4,23 @@ import {
   outlinePurpleShapeButton,
   purpleShapeButton,
 } from '../../theme/images';
-import { ButtonType, Colors } from '../../theme/theme';
+import { ButtonType, Colors, GlobalFontFamily } from '../../theme/theme';
 
 
 interface CustomButtonProps {
   label: string;
   type?: ButtonType;
   onPress: () => void;
-  disable?: boolean
+  disable?: boolean,
+  showIcon?:boolean
 }
 
 const CustomButton = ({
   label,
   onPress,
   type = ButtonType.Filled,
-  disable = false
+  disable = false,
+  showIcon =false
 }: CustomButtonProps) => {
   return (
     <TouchableOpacity 
@@ -40,7 +42,11 @@ const CustomButton = ({
         ]}>
         {label}
       </Text>
-      <Image source={arrowLeft} style={{position:'absolute', right:10, height:25, width:25}}/>
+      {
+        showIcon&&
+              <Image source={arrowLeft} style={{position:'absolute', right:10, height:25, width:25}}/>
+
+      }
     </TouchableOpacity>
   );
 };
@@ -59,9 +65,11 @@ const styles = StyleSheet.create({
   },
   label: {
     position: 'absolute',
-    top: 18,
+    top: 15,
     width: '100%',
     textAlign: 'center',
+    fontSize:20,
+    fontFamily:GlobalFontFamily.lex_bold
   },
   image: {
     width: '100%',

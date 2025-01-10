@@ -10,22 +10,34 @@ export const METRICS = {
 
 
 export const GlobalFontFamily = {
-    black:'LexendDeca-Black',
-    bold:'LexendDeca-Bold',
-    extra_bold:'LexendDeca-ExtraBold',
-    light:'LexendDeca-Light',
-    extra_light:'LexendDeca-ExtraLight',
-    regular:'LexendDeca-Regular',
-    medium:'LexendDeca-Medium',
-    semi_bold:'LexendDeca-SemiBold',
-    thin:'LexendDeca-Thin',
+    lex_black:'LexendDeca-Black',
+    lex_bold:'LexendDeca-Bold',
+    lex_extra_bold:'LexendDeca-ExtraBold',
+    lex_light:'LexendDeca-Light',
+    lex_extra_light:'LexendDeca-ExtraLight',
+    lex_regular:'LexendDeca-Regular',
+    lex_medium:'LexendDeca-Medium',
+    lex_semi_bold:'LexendDeca-SemiBold',
+    lex_thin:'LexendDeca-Thin',
+
+    lato_black:'Lato-Black',
+    lato_black_italic:'Lato-Black-Italic',
+    lato_bold:'Lato-Bold',
+    lato_bold_italic:'Lato-BoldItalic',
+    lato_italic:'Lato-Italic',
+    lato_light:'Lato-Light',
+    lato_light_italic:'Lato-LightItalic',
+    lato_regular:'Lato-Regular',
+    lato_thin:'Lato-Hairline',
+    lato_thin_italic:'Lato-HairlineItalic',
 
 }
 
 export const Colors = {
     primary: '#5F33E1',
     accent: '#cccccc',
-    white: '#ffffff'
+    white: '#ffffff',
+    gray: '#4A4A4A'
 }
 
 export enum ButtonType  {

@@ -3,7 +3,7 @@ import React, { createContext, ReactNode } from 'react'
 import { useTaskListAnimations } from '../../hooks/useTaskListAnimations';
 import { useLogout } from '../../hooks/useLogout';
 import { shcedule , logout as logoutIcon, arrowLeft} from '../../theme/images'
-import { Colors, METRICS } from '../../theme/theme';
+import { Colors, GlobalFontFamily, METRICS } from '../../theme/theme';
 import { RootStackParamList } from '../../navigation/StackNavigation';
 import { StackNavigationProp } from '@react-navigation/stack';
 import LogoutButton from './logoutButton';
@@ -18,7 +18,6 @@ interface HeaderProps {
 
 const HeaderContainer = ({children , scrollY = new Animated.Value(0),title, navigation}: HeaderProps) => {
     const { headerHeight} = useTaskListAnimations(scrollY)
-  const {logout} = useLogout();
   return (
     <Animated.View style={[styles.container,styles.shadow, {height:headerHeight}]}>
       <View style={styles.titlerow}>
@@ -66,6 +65,7 @@ const HeaderContainer = ({children , scrollY = new Animated.Value(0),title, navi
       alignItems: 'center',
     },
     title: {
+      fontFamily:GlobalFontFamily.lex_regular,
       padding: 5,
     },
     imageLogout: {

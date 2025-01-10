@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Task } from '../../../Domain/entities/Task'
 import { edit, remove } from '../../theme/images'
-import { Colors } from '../../theme/theme'
+import { Colors, GlobalFontFamily } from '../../theme/theme'
 import { capitalize } from '../../utils/utils';
 
 interface TaskCardProps {
@@ -52,9 +52,12 @@ const styles = StyleSheet.create({
     width:'80%'
   },
   statusLabel:{
-    color:Colors.primary
+    color:Colors.primary,
+    fontFamily:GlobalFontFamily.lato_regular,
+     marginBottom:10
   },
   titleLabel:{
+    fontFamily:GlobalFontFamily.lato_regular
   }
 });
 

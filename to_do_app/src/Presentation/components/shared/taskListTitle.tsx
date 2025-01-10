@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { Colors } from '../../theme/theme'
+import { Colors, GlobalFontFamily } from '../../theme/theme'
 import { useTaskViewModel } from '../../viewmodels/useTaskViewModel'
 import { capitalize } from '../../utils/utils'
 
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     title:{
         textAlign:'center', 
         marginBottom:10,
+        fontFamily:GlobalFontFamily.lato_regular
       },
       titleRow:{
         flexDirection:'row',

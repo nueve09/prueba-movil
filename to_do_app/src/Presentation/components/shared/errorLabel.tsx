@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { GlobalFontFamily } from '../../theme/theme';
 
 interface errorLabelProps{
     error:string;
@@ -20,6 +21,7 @@ export default ErrorLabel
 const styles = StyleSheet.create({
     error:{
         textAlign:'center',
-        color:'red'
+        color:'red',
+        fontFamily:GlobalFontFamily.lex_medium
     }
 })

@@ -1,6 +1,6 @@
 import {View, TextInput, StyleSheet, TouchableOpacity, Text, Image} from 'react-native';
 import React, { useState } from 'react';
-import {Colors} from '../../theme/theme';
+import {Colors, GlobalFontFamily} from '../../theme/theme';
 import { hidePassword, showPassword } from '../../theme/images';
 
 interface CustomTextInputProps {
@@ -24,6 +24,7 @@ const CustomTextInput = ({
         placeholder={placeholder}
         style={styles.input}
         value={value}
+        placeholderTextColor={Colors.gray}
         onChangeText={newValue => setValue(newValue)}
       />
       {
@@ -47,7 +48,8 @@ const styles = StyleSheet.create({
   input: {
     height: 55,
     paddingLeft: 20,
-    flex:1
+    flex:1,
+    fontFamily:GlobalFontFamily.lex_light
   },
   showButton:{
     justifyContent:'center',

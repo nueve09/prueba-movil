@@ -8,7 +8,7 @@ import { useTaskViewModel } from '../../viewmodels/useTaskViewModel'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from '../../navigation/StackNavigation'
-import { Colors } from '../../theme/theme'
+import { Colors, GlobalFontFamily } from '../../theme/theme'
 import LogoutButton from '../shared/logoutButton'
 
 interface headerProps {
@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
       alignItems:'center',
     },
     title:{
-      padding:5
+      padding:5,
+      fontFamily:GlobalFontFamily.lex_medium
     },
     icon:{
       position:'absolute',

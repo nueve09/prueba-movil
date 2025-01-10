@@ -49,7 +49,7 @@ export const useTaskViewModel = () => {
     dispatch(showModal({
         visible:true,
         title:'Estas apunto de eliminar esta tarea.',
-        message:`Estas seguro que deseas eliminat la tarea "${taskName}"`,
+        message:`¿Estas seguro que deseas eliminar la tarea "${taskName}" ?`,
         actionText:'Eliminar',
         params:{taskId,taskName},
         action:'removeItem'
@@ -60,7 +60,7 @@ export const useTaskViewModel = () => {
     dispatch(showModal({
         visible:true,
         title:'Estas apunto de cerrar sesion.',
-        message:'Estas seguro que deseas cerrar tu sesion?',
+        message:'¿Estas seguro que deseas cerrar tu sesion?',
         actionText:'Salir',
         params:null,
         action:'logout'
