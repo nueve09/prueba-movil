@@ -8,6 +8,20 @@ export const METRICS = {
     height
 }
 
+
+export const GlobalFontFamily = {
+    black:'LexendDeca-Black',
+    bold:'LexendDeca-Bold',
+    extra_bold:'LexendDeca-ExtraBold',
+    light:'LexendDeca-Light',
+    extra_light:'LexendDeca-ExtraLight',
+    regular:'LexendDeca-Regular',
+    medium:'LexendDeca-Medium',
+    semi_bold:'LexendDeca-SemiBold',
+    thin:'LexendDeca-Thin',
+
+}
+
 export const Colors = {
     primary: '#5F33E1',
     accent: '#cccccc',
