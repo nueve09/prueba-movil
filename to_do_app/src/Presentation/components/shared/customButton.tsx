@@ -1,5 +1,6 @@
 import {TouchableOpacity, Text, Image, StyleSheet} from 'react-native';
 import {
+  arrowLeft,
   outlinePurpleShapeButton,
   purpleShapeButton,
 } from '../../theme/images';
@@ -39,6 +40,7 @@ const CustomButton = ({
         ]}>
         {label}
       </Text>
+      <Image source={arrowLeft} style={{position:'absolute', right:10, height:25, width:25}}/>
     </TouchableOpacity>
   );
 };

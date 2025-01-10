@@ -7,6 +7,7 @@ interface ModalState {
     message: string;
     actionText: string;  
     action:string;
+    actionDone:boolean;
     params: Record<string,any> | null
   }
 
@@ -16,7 +17,8 @@ interface ModalState {
     message: '',
     actionText: 'Aceptar',
     action:'',
-    params: null
+    params: null,
+    actionDone:false
   };
 
 
@@ -31,8 +33,8 @@ export const modalSlice = createSlice({
         state.actionText = action.payload.actionText || 'Aceptar'; 
         state.action = action.payload.action;
         state.params = action.payload.params;
-    },
-    hideModal: (state) => {
+      },
+      hideModal: (state) => {
         state.visible = false;
         state.message = '';
         state.title = '';
@@ -40,7 +42,10 @@ export const modalSlice = createSlice({
         state.action = '';
         state.params = null;
       },
+      setActionDone: (state, action ) => {
+          state.actionDone = action.payload.actionDone
+      }
     },
   });
   
-  export const { showModal, hideModal } = modalSlice.actions;
+  export const { showModal, hideModal , setActionDone } = modalSlice.actions;

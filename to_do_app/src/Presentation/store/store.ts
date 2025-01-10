@@ -13,6 +13,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { taskSlice } from "./slices/task/taskSlice";
 import { modalSlice } from "./slices/modal/modalSlice";
+import { TaskApi } from "../../Data/sources/api/remote/TaskApiSlice";
 
   const persistConfig = {
     key: 'root',
@@ -22,7 +23,8 @@ import { modalSlice } from "./slices/modal/modalSlice";
   const rootReducer = combineReducers({
     user: userSlice.reducer,
     task: taskSlice.reducer,
-    modal: modalSlice.reducer
+    modal: modalSlice.reducer,
+    [TaskApi.reducerPath]:TaskApi.reducer
   });
 
   const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -34,7 +36,7 @@ import { modalSlice } from "./slices/modal/modalSlice";
         serializableCheck: {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
-      }),
+      }).concat(TaskApi.middleware),
   });
 
   const persistor = persistStore(store);

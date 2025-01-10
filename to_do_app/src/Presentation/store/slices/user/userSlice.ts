@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { User } from "../../../../Domain/entities/User";
+
+const initialState : User = {
+    email:'',
+    userId:0,
+}
 
 export const userSlice = createSlice({
     name:'user',
-    initialState:{
-        email:'',
-        userId:'',
-        loading:false
-    },
+    initialState,
     reducers:{
         setUser : (state, action) =>{
             state.email = action.payload.email;
@@ -15,7 +17,7 @@ export const userSlice = createSlice({
     
         setLogOut : (state) =>{
             state.email = '';
-            state.userId = ''
+            state.userId = null
         },
     
     }

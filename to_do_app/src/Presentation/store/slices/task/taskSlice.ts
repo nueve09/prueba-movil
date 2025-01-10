@@ -19,13 +19,17 @@ export const taskSlice = createSlice({
     name:'task',
     initialState,
     reducers:{
+        resetTaskState: (state) => {
+            state.isLoading= false,
+            state.taskList= [],
+            state.error= '',
+            state.filteredList= []
+        },
         startLoadingTask : (state) =>{
            state.isLoading = true;
         },
     
         setTasks : (state, action) =>{
-            state.isLoading = false;
-            state.taskList = action.payload.taskList
             state.filteredList = action.payload.taskList
         },
         setError : (state,action) => {
@@ -38,6 +42,11 @@ export const taskSlice = createSlice({
         },
         editTask : (state, action)=>{
             state.taskList = action.payload.taskList
+            state.filteredList = action.payload.filteredList
+        },
+        createTask : (state, action) =>{
+            state.taskList = action.payload.taskList
+            state.filteredList = action.payload.filteredList
         },
         filterList : (state, action) => {
             state.filteredList = action.payload.taskList
@@ -46,4 +55,4 @@ export const taskSlice = createSlice({
     }
 });
 
-export const { startLoadingTask , setTasks , removeTask , setError , editTask, filterList} = taskSlice.actions;
+export const { resetTaskState, startLoadingTask , setTasks , removeTask , setError , editTask, filterList} = taskSlice.actions;
