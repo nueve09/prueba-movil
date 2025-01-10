@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-export const useForm = () => {
+export const useLoginForm = () => {
+  //TODO: Remoce credentials
     const [loginForm, setLogin] = useState({
-        email: '',
-        password: '',
+        email: 'user2@example.com',
+        password: 'pass456',
       });
     
       const setEmail = (val: string) => setLogin({...loginForm, email: val});

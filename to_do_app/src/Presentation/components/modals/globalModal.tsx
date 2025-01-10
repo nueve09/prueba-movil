@@ -19,9 +19,14 @@ const ActionButton = ({label,action}:ActionButtonProps) => {
   )
 }
 
-const GlobalModal = () => {
-    const { visible , message ,actionText , title, action } = useSelector((state:RootState) => state.modal)
-    const { actionsHandler } = useGloblaModalViewModel()
+interface GlobalModalProps {
+  action:()=>void,
+  
+} 
+
+const GlobalModal = ({action}:GlobalModalProps) => {
+    const { visible , message ,actionText , title } = useSelector((state:RootState) => state.modal)
+    const { hide } = useGloblaModalViewModel()
 
   return (
     <Modal
@@ -34,14 +39,14 @@ const GlobalModal = () => {
     <View style={{ flex: 1 , justifyContent:'center'}}>
       <View style={[styles.contianer,styles.shadow]}>
         <View style={styles.title}>
-          <Text>{ title } {action} </Text>
+          <Text>{ title } </Text>
         </View>
         <View style={styles.content}>
           <Text>{message}</Text>
         </View>
         <View style={styles.actions}>
-          <ActionButton label='Cancelar' action={()=>actionsHandler['hide']()}/>
-          <ActionButton label={actionText} action={()=>actionsHandler[action]()}/>
+          <ActionButton label='Cancelar' action={()=>hide()}/>
+          <ActionButton label={actionText} action={()=>action()}/>
         </View>
       </View>
     </View>

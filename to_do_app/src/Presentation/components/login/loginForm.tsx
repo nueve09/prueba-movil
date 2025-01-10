@@ -3,14 +3,14 @@ import React from 'react'
 import CustomTextInput from '../shared/customTextInput'
 import CustomButton from '../shared/customButton'
 import { ButtonType } from '../../theme/theme'
-import { useLogin } from '../../hooks/useLogin'
-import { useForm } from '../../hooks/useForm'
+import { useLoginForm } from '../../hooks/useLoginForm'
 import ErrorLabel from '../shared/errorLabel'
+import { useSessionViewModel } from '../../viewmodels/useSessionViewModel'
 
 const LoginForm = () => {
 
-    const { submit , error , isLoading } = useLogin();
-    const { setEmail , setPassword , loginForm:{email,password} } = useForm(); 
+    const { submit , error , isLoading } = useSessionViewModel();
+    const { setEmail , setPassword , loginForm:{email,password} } = useLoginForm(); 
 
   return (
     <View style={styles.form}>
