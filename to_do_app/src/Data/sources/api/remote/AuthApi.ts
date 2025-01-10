@@ -1,4 +1,4 @@
-import { User } from '../../../Domain/entities/User';
+import { User } from '../../../../Domain/entities/User';
 
 export const usersData = [
   {email: 'admin@example.com', password: 'th1s1sadm1n', userId: 0},
@@ -18,11 +18,9 @@ export const login = (email: string, password: string): Promise<User|string> => 
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const response = findUser(email, password);
-      if (typeof response === 'string') {
-        reject(response);
-      } else {
-        resolve(response);
-      }
+      if (typeof response === 'string') reject(response);
+      
+      resolve(response);
     }, 2000);
   });
 };

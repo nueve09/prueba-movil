@@ -1,9 +1,10 @@
-import { login } from "../sources/api/AuthApi";
+import { login } from "../sources/api/remote/AuthApi";
 import { ResponseAuthApi } from "../models/ResponseAuthApi";
 import { User } from "../../Domain/entities/User";
+import { AuthRepository } from "../../Domain/repository/AuthRepository";
 
-export class AuthRepositoryImpl implements AuthRepositoryImpl {
-  async login(email: string, password: string): Promise<ResponseAuthApi> {
+export class AuthRepositoryImpl implements AuthRepository {
+   async login(email: string, password: string): Promise<ResponseAuthApi> {
     try {
       const response = await login(email, password);
       return {
@@ -18,5 +19,5 @@ export class AuthRepositoryImpl implements AuthRepositoryImpl {
         success: false,
       };
     }
-  }
+   }  
 }

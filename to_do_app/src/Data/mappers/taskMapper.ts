@@ -11,7 +11,10 @@ export class TaskMapper {
     }
   }
 
-  static toDomainList(taskList:TaskModel[]):Task[]{
+  static toDomainList(taskList:TaskModel[], userId:number):Task[]{
+    if(userId){
+      return taskList.map(this.toDomain).filter(item=>item.userId === userId);
+    }
     return taskList.map(this.toDomain);
   }
 
