@@ -1,5 +1,4 @@
 import { View, Image } from 'react-native'
-import React, { useState } from 'react'
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/StackNavigation';
 import HeaderContainer from '../components/shared/headerContainer';
@@ -10,6 +9,10 @@ import { ButtonType } from '../theme/theme';
 import KeyboardAvoidContainer from '../components/shared/keyboardingAvoidContainer';
 import { StackNavigationProp } from '@react-navigation/stack';
 import CustomDropDown from '../components/shared/customDropDown';
+import ErrorLabel from '../components/shared/errorLabel';
+import { useTaskForm } from '../hooks/useTaskForm';
+import GlobalModal from '../components/modals/globalModal';
+import { useGloblaModalViewModel } from '../viewmodels/useGloblaModalViewModel';
 
 
 type TaskDetailsRouteProp = RouteProp<RootStackParamList, 'Task'>;
@@ -19,12 +22,23 @@ interface TaskDetailsProps {
 }
 const TaskScreen = ({route}:TaskDetailsProps) => {
   const {task} = route.params;
+  
   const navigation = useNavigation<StackNavigationProp<RootStackParamList,'Task'>>()
-  const [taskName,setTaskName] = useState(task?.title||'');
-  const [status,setStatus] = useState(task?.completed||'') 
 
+  const { 
+    taskForm, 
+    setTitle, 
+    setStatus, 
+    error, 
+    save, 
+    dimiss
+  } = useTaskForm(task)
+
+  const {removeItem} = useGloblaModalViewModel()
+  
   return (
     <KeyboardAvoidContainer>
+      <GlobalModal action={()=>removeItem(()=>navigation.goBack())}/>
       <HeaderContainer title={!task?'Agregar tarea':'Editar tarea'} navigation={navigation}>
         <Image source={principal_detail}/>
       </HeaderContainer>
@@ -33,24 +47,25 @@ const TaskScreen = ({route}:TaskDetailsProps) => {
         <View>
           <CustomTextInput
             placeholder='Nombre de la tarea'
-            setValue={()=>{}}
-            value={taskName}
+            setValue={(value)=>setTitle(value)}
+            value={taskForm?.title}
           />
           <CustomDropDown
             placeholder='Status'
-            setValue={()=>{}}
-            value=''
+            setValue={(value)=>setStatus(value)}
+            value={taskForm?.completed}
           />
         </View>
         <View>
+          <ErrorLabel error={error}/>
           <CustomButton
             label='Guardar'
-            onPress={()=>{}}
+            onPress={save}
             type={ButtonType.Filled}
           />
           <CustomButton
-            label='Guardar'
-            onPress={()=>{}}
+            label={!task?'Cancelar':'Eliminar'}
+            onPress={dimiss}
             type={ButtonType.Rounded}
           />
         </View>

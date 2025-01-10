@@ -1,41 +1,31 @@
-import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setLogOut } from '../store/slices/user/userSlice';
 import { removeTask } from '../store/slices/task/taskSlice';
-import { RootState } from '../store/store';
-import { hideModal, setActionDone } from '../store/slices/modal/modalSlice';
+import { AppDispatch, RootState } from '../store/store';
+import { hideModal } from '../store/slices/modal/modalSlice';
+import { TaskApi } from '../../Data/sources/api/remote/TaskApiSlice';
 
 export const useGloblaModalViewModel = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const { filteredList} = useSelector((state:RootState) => state.task);
+    const { params , visible } = useSelector((state:RootState) => state.modal);
 
-    const dispatch = useDispatch();
-    const { taskList ,  filteredList} = useSelector((state:RootState) => state.task);
-    const { params , visible , actionDone} = useSelector((state:RootState) => state.modal);
-
-    const removeItem = () => {
+    const removeItem = (onHide:()=>void) => {
         const newFilteredList = filteredList.filter(task=> task.id !== params!.taskId)
-        const newList = taskList.filter(task=> task.id !== params!.taskId)
-    
-        dispatch(removeTask({filteredList:newFilteredList,taskList:newList}))
-        dispatch(setActionDone({actionDone:true}))
+        dispatch(removeInCacheData())
+        dispatch(removeTask({filteredList:newFilteredList}))
         dispatch(hideModal());
-        
+        onHide();
       };
-    
-    const editItem = () => {
-      
+
+
+    const removeInCacheData = () => {
+      return TaskApi.util.updateQueryData('getTasks',10,(draft) => {
+        const newList = draft!.filter(task=> task.id !== params!.taskId)
+        return newList
+      })
     }
 
-    const actionsHandler:Record<string,any> = {
-        'logout':()=>{
-            dispatch(setLogOut());
-            dispatch(hideModal())
-        },
-        'removeItem':()=>removeItem(),
-        'editItem':()=>editItem(),
-        'hide':()=>dispatch(hideModal()),
-    }
+    const hide = () => dispatch(hideModal())
 
-
-
-  return {actionsHandler, visible, params ,actionDone}
+  return {visible, params ,hide, removeItem}
 }
