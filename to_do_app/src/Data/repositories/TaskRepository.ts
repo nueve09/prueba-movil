@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import { Task } from "../../Domain/entities/Task";
 import { Taskrepository } from "../../Domain/repository/TaskRepository";
 import { ResponseTaskApi } from "../models/ResponseTaskApi";
-import { TaskApi } from "../sources/api/TaskApi";
+import { TaskApi } from "../sources/api/remote/TaskApi";
 import { TaskModel } from "../models/TaskModel";
 import { TaskMapper } from "../mappers/taskMapper";
 
@@ -12,7 +12,7 @@ export class TaskrepositoryImpl implements Taskrepository{
         try{
             const response:AxiosResponse<TaskModel[]>= await TaskApi.get(`/todos?_limit=${limit}`);            
             return {
-                data:TaskMapper.toDomainList(response.data),
+                data:TaskMapper.toDomainList(response.data,0),
                 message:'task list',
                 success:true
             }

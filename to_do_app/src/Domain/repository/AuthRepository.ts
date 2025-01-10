@@ -3,7 +3,7 @@ import { User } from "../entities/User";
 
 export interface AuthRepository {
 
-    login(user:User): Promise<ResponseAuthApi>;
+    login(email:string, password:string): Promise<ResponseAuthApi>;
 
 
 }
