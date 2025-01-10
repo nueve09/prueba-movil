@@ -1,28 +1,37 @@
 import {View, TextInput, StyleSheet, TouchableOpacity, Text, Image} from 'react-native';
 import React, { useState } from 'react';
 import {Colors} from '../../theme/theme';
-import { hidePassword, showPassword } from '../../theme/images';
+import { dropdownArrow, hidePassword, showPassword } from '../../theme/images';
 import { Dropdown } from 'react-native-element-dropdown';
 
-const data = [
-    { label: 'Pendiente', value: false },
-    { label: 'Completado', value: true },
+interface StatusType {
+    label:string;
+    value:string;
+    _index?:number
+}
+
+const data:StatusType[] = [
+    { label: 'Pendiente', value: 'pendiente' },
+    { label: 'Completado', value: 'completado' },
 ];
 
 interface CustomDropDownProps {
   value: string;
   placeholder: string;
-  password?:boolean;
   setValue: (newString: string) => void;
 }
+
+const ArrowIcon = () => (
+  <View>
+    <Image source={dropdownArrow} style={{width:20, height:20, resizeMode:'contain'}}/>
+  </View>
+)
 
 const CustomDropDown = ({
   value,
   placeholder,
   setValue,
-  password = false
 }: CustomDropDownProps) => {
-  const [showPass, setShowPass] = useState(false)
   return (
     <View style={styles.inputContainer}>
       <Dropdown
@@ -30,21 +39,18 @@ const CustomDropDown = ({
         data={data}
         labelField='label'
         valueField='value'
-        onChange={(val)=>{console.log(val)}}
+        onChange={(val)=>setValue(val.label)}
         style={styles.input}
+        renderRightIcon={()=><ArrowIcon/>}
+        containerStyle={styles.dropdownContainer}
         value={value}
-        onChangeText={newValue => setValue(newValue)}
-        renderItem={(item)=>(
-            <View>
-                <Text>item</Text>
+        renderItem={({label,value}:StatusType)=>(
+            <View style={styles.dropdownItem}>
+                <Text>{label}</Text>
             </View>
         )}
       />
-      {
-        password &&
-      <TouchableOpacity style={styles.showButton} onPress={()=>setShowPass(!showPass)}>
-        <Image source={showPass ? showPassword: hidePassword} style={styles.eyeIcon}/>
-      </TouchableOpacity>}
+     
     </View>
   );
 };
@@ -63,21 +69,14 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     flex:1
   },
-  showButton:{
-    justifyContent:'center',
-    padding:8,
-    borderRadius:10,
-    alignItems:'center',
-    width:50
+  dropdownContainer:{ 
+    borderWidth:1, 
+    borderRadius:20,
+    borderColor:Colors.primary, 
+    overflow:'hidden'
   },
-  showButtonLabel:{
-    color:Colors.accent,
-    textAlign:'center'
-  },
-  eyeIcon:{
-    width:25,
-    height:25,
-    tintColor:Colors.primary
+  dropdownItem:{
+    padding:20
   }
 });
 
