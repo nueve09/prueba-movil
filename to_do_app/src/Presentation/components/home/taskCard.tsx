@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Task } from '../../../Domain/entities/Task'
 import { edit, remove } from '../../theme/images'
 import { Colors } from '../../theme/theme'
+import { capitalize } from '../../utils/utils';
 
 interface TaskCardProps {
     task:Task|null;
@@ -14,8 +15,8 @@ const TaskCard = ({task,onRemove ,onEdit}:TaskCardProps) => {
   return (
     <View style={styles.card}>
       <View style={styles.labels}>
-        <Text style={styles.statusLabel}>{task.completed ? "Completada" : "Pendiente"}</Text>
-        <Text style={styles.titleLabel}>{task.title}</Text>
+        <Text style={styles.statusLabel}>{capitalize(task.completed)}</Text>
+        <Text style={styles.titleLabel}>{task.id} - {task.title}</Text>
       </View>
       <View style={styles.buttons}> 
         <TouchableOpacity onPress={()=>onEdit()}>
