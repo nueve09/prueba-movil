@@ -1,6 +1,6 @@
 import {Provider} from 'react-redux';
-import {store , persistor} from './src/Presentation/store/store';
-import Main from './src/Presentation/main';
+import {store , persistor} from './src/store/store';
+import Main from './src/main';
 import {SafeAreaView, Text, View} from 'react-native';
 import { PersistGate } from 'redux-persist/integration/react';
 
