@@ -29,10 +29,13 @@ const navigation = useNavigation<NavigationProps>();
     navigation.replace('Home');
   };
 
+  const canGoBack = () => navigation.canGoBack()
+
   return {
     navigateToHome,
     navigateToTask,
     goBack,
     replaceWithHome,
+    canGoBack
   };
 };
