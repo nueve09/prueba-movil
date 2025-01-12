@@ -1,7 +1,7 @@
-import { login } from "../sources/api/remote/AuthApi";
-import { ResponseAuthApi } from "../models/ResponseAuthApi";
-import { User } from "../../Domain/entities/User";
+import { login } from "../../api/AuthApi";
+import { User } from "../../entities/User";
 import { AuthRepository } from "../../Domain/repository/AuthRepository";
+import { ResponseAuthApi } from "../../models/ResponseAuthApi";
 
 export class AuthRepositoryImpl implements AuthRepository {
    async login(email: string, password: string): Promise<ResponseAuthApi> {

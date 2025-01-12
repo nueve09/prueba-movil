@@ -1,10 +1,9 @@
 import { AxiosResponse } from "axios";
-import { Task } from "../../Domain/entities/Task";
 import { Taskrepository } from "../../Domain/repository/TaskRepository";
-import { ResponseTaskApi } from "../models/ResponseTaskApi";
 import { TaskApi } from "../sources/api/remote/TaskApi";
-import { TaskModel } from "../models/TaskModel";
-import { TaskMapper } from "../mappers/taskMapper";
+import { TaskMapper } from "../../helpers/taskMapper";
+import { ResponseTaskApi } from "../../models/ResponseTaskApi";
+import { TaskModel } from "../../models/TaskModel";
 
 export class TaskrepositoryImpl implements Taskrepository{
     async getTasks(limit:number): Promise<ResponseTaskApi> {

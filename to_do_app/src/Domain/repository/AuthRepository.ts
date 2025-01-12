@@ -1,5 +1,5 @@
-import { ResponseAuthApi } from "../../Data/models/ResponseAuthApi";
-import { User } from "../entities/User";
+import { User } from "../../entities/User";
+import { ResponseAuthApi } from "../../models/ResponseAuthApi";
 
 export interface AuthRepository {
 
