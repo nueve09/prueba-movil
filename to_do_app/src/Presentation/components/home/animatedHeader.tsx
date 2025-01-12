@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from '../../navigation/StackNavigation'
 import { Colors, GlobalFontFamily } from '../../theme/theme'
-import LogoutButton from '../shared/logoutButton'
+import HeaderContainer from '../shared/headerContainer'
 
 interface headerProps {
   scrollY: Animated.Value;
@@ -22,15 +22,11 @@ const animatedHeader = ({scrollY}:headerProps) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList,'Task'>>();
 
   return (
-    <Animated.View style={[styles.container,styles.shadow, {height: headerHeight}]}>
-
-      <View style={styles.titlerow}>
-        <Text style={styles.title}>Organizador de Tareas</Text>
-        <LogoutButton/>
-      </View>
-
-      <Animated.Image source={shcedule} style={[styles.imageSchedule,{ opacity: imageOpacity,height: imageHeight  }]} />
-
+    <HeaderContainer title='Organizador de tareas' floating={true} scrollY={scrollY}>
+      <View style={{flex:1, width:'100%',height:'100%', justifyContent:'space-between'}}>
+        <View style={{ flex:1, justifyContent:'center'}}>
+          <Animated.Image source={shcedule} style={[styles.imageSchedule,{ opacity: imageOpacity,height: imageHeight  }]} />
+        </View>
       <View>
         <CustomTextInput
           placeholder="Buscar tarea"
@@ -40,7 +36,8 @@ const animatedHeader = ({scrollY}:headerProps) => {
 
         <CustomButton label="Agregar" onPress={() => {navigation.navigate('Task',{})}} />
       </View>
-    </Animated.View>
+      </View>
+    </HeaderContainer>
   );
 }
 
@@ -71,15 +68,7 @@ const styles = StyleSheet.create({
   
       elevation: 5,
     },
-    titlerow:{
-      flexDirection:'row',
-      justifyContent:'center',
-      alignItems:'center',
-    },
-    title:{
-      padding:5,
-      fontFamily:GlobalFontFamily.lex_medium
-    },
+   
     icon:{
       position:'absolute',
       right:5
@@ -91,7 +80,7 @@ const styles = StyleSheet.create({
     imageSchedule:{
       alignSelf:'center',
       marginVertical:10,
-      resizeMode:'contain'
+      resizeMode:'contain',
     },
   })
 

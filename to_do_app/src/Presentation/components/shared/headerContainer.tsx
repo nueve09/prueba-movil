@@ -1,35 +1,35 @@
-import { View, Text, Animated, StyleSheet, TouchableOpacity, Image } from 'react-native'
-import React, { createContext, ReactNode } from 'react'
+import { View, Animated, StyleSheet } from 'react-native'
+import React, { ReactNode } from 'react'
 import { useTaskListAnimations } from '../../hooks/useTaskListAnimations';
-import { useLogout } from '../../hooks/useLogout';
-import { shcedule , logout as logoutIcon, arrowLeft} from '../../theme/images'
-import { Colors, GlobalFontFamily, METRICS } from '../../theme/theme';
+import { Colors, GlobalFontFamily } from '../../theme/theme';
 import { RootStackParamList } from '../../navigation/StackNavigation';
 import { StackNavigationProp } from '@react-navigation/stack';
-import LogoutButton from './logoutButton';
+import HeaderTitle from './headerTitle';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 interface HeaderProps {
     scrollY?: Animated.Value;
     children: ReactNode;
     title:string;
-    navigation:StackNavigationProp<RootStackParamList, "Task">
+    floating:boolean
   }
 
-const HeaderContainer = ({children , scrollY = new Animated.Value(0),title, navigation}: HeaderProps) => {
+const HeaderContainer = ({children , scrollY = new Animated.Value(0),title,floating}: HeaderProps) => {
     const { headerHeight} = useTaskListAnimations(scrollY)
   return (
-    <Animated.View style={[styles.container,styles.shadow, {height:headerHeight}]}>
-      <View style={styles.titlerow}>
-      <TouchableOpacity onPress={()=>navigation.goBack()} style={styles.backIcon}>
-            <Image source={arrowLeft} style={styles.backImage}/>
-        </TouchableOpacity>
-        <Text style={styles.title}>{title}</Text>
-        <LogoutButton/>       
-      </View>
-        <View style={{flex:1,justifyContent:'center', alignItems:'center'}}>
+    <Animated.View style={[styles.container,styles.shadow, {height:headerHeight, position:floating?'absolute':'relative'}]}>
+      <LinearGradient colors={['#DAFBE6','#ffffff','#F5FAE1']}   start={{x: 0.0, y: 0.5}} end={{x: 1, y: 0.0}}
+ style={[{flex:1, position:'absolute', width:'100%', top:0, right:0,bottom:0,left:0, alignSelf:'stretch',  borderBottomLeftRadius: 40,
+  borderBottomRightRadius: 40,}]}>
+
+      <>
+      <HeaderTitle title={title}/>
+        <View style={styles.childrenContainer}>
         {children}
         </View>
+      </>
+    </LinearGradient>
     </Animated.View>
   );
 };
@@ -39,14 +39,16 @@ const HeaderContainer = ({children , scrollY = new Animated.Value(0),title, navi
       backgroundColor: Colors.white,
       borderBottomLeftRadius: 40,
       borderBottomRightRadius: 40,
-      paddingHorizontal: 20,
       justifyContent: 'space-between',
       paddingTop: 5,
       paddingBottom: 15,
+      borderWidth:2,
+      borderColor:'#cccc',
       top: 0,
       left: 0,
       right: 0,
       zIndex: 1,
+      overflow:'hidden'
     },
     shadow:{
         shadowColor: "#000",
@@ -57,35 +59,13 @@ const HeaderContainer = ({children , scrollY = new Animated.Value(0),title, navi
         shadowOpacity: .8,
         shadowRadius: 2,
     
-        elevation: 5,
+        elevation: 1,
       },
-    titlerow: {
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    title: {
-      fontFamily:GlobalFontFamily.lex_regular,
-      padding: 5,
-    },
-    imageLogout: {
-      height: 20,
-      width: 20,
-    },
-    icon:{
-        position:'absolute',
-        right:5
-      },
-    backIcon:{
-        position:'absolute',
-        left:5,
-    },
-    backImage:{
-        width:30,
-        height:30,
-        resizeMode:'contain',
-        transform:[{ rotate: '180deg' }],
-        tintColor:Colors.primary
+    childrenContainer:{
+      flex:1,
+      justifyContent:'center',
+      alignItems:'center',
+      paddingHorizontal:20
     }
   });
 export default HeaderContainer
