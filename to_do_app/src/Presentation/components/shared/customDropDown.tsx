@@ -1,6 +1,6 @@
-import {View, TextInput, StyleSheet, TouchableOpacity, Text, Image} from 'react-native';
-import React, { useState } from 'react';
-import {Colors} from '../../theme/theme';
+import {View, StyleSheet, Text, Image} from 'react-native';
+import React from 'react';
+import {Colors, GlobalFontFamily} from '../../theme/theme';
 import { dropdownArrow, hidePassword, showPassword } from '../../theme/images';
 import { Dropdown } from 'react-native-element-dropdown';
 
@@ -39,6 +39,7 @@ const CustomDropDown = ({
         data={data}
         labelField='label'
         valueField='value'
+        itemTextStyle={styles.fontLabel}
         onChange={(val)=>setValue(val.label)}
         style={styles.input}
         renderRightIcon={()=><ArrowIcon/>}
@@ -46,7 +47,7 @@ const CustomDropDown = ({
         value={value}
         renderItem={({label,value}:StatusType)=>(
             <View style={styles.dropdownItem}>
-                <Text>{label}</Text>
+                <Text style={styles.fontLabel}>{label}</Text>
             </View>
         )}
       />
@@ -67,7 +68,8 @@ const styles = StyleSheet.create({
   input: {
     height: 55,
     paddingLeft: 20,
-    flex:1
+    flex:1,
+    fontFamily:GlobalFontFamily.lato_regular
   },
   dropdownContainer:{ 
     borderWidth:1, 
@@ -77,6 +79,9 @@ const styles = StyleSheet.create({
   },
   dropdownItem:{
     padding:20
+  },
+  fontLabel:{
+    fontFamily:GlobalFontFamily.lato_regular
   }
 });
 

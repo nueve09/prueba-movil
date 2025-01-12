@@ -16,7 +16,7 @@ const TaskCard = ({task,onRemove ,onEdit}:TaskCardProps) => {
     <View style={styles.card}>
       <View style={styles.labels}>
         <Text style={styles.statusLabel}>{capitalize(task.completed)}</Text>
-        <Text style={styles.titleLabel}>{task.id} - {task.title}</Text>
+        <Text numberOfLines={1} ellipsizeMode='tail' style={styles.titleLabel}>{task.id} - {task.title}</Text>
       </View>
       <View style={styles.buttons}> 
         <TouchableOpacity onPress={()=>onEdit()}>
