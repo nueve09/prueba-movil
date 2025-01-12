@@ -1,7 +1,8 @@
 import {
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
-  View,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import LoginForm from '../components/login/loginForm';
 import MainLogo from '../components/login/mainLogo';
@@ -12,13 +13,12 @@ export default function Login() {
     <KeyboardAvoidingView
       style={{flex: 1}}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-
-       
-       <View style={{flex:1}}>
-        <MainLogo/>
-
-        <LoginForm />
-       </View>
+       <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{flex:1}}>
+        <>
+          <MainLogo/>
+          <LoginForm />
+        </>
+       </TouchableWithoutFeedback >
     </KeyboardAvoidingView>
   );
 }
