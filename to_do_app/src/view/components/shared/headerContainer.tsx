@@ -4,6 +4,7 @@ import { Colors, GlobalFontFamily } from '../../theme/theme';
 import HeaderTitle from './headerTitle';
 import LinearGradient from 'react-native-linear-gradient';
 import { useTaskListAnimations } from '../../../hooks/task/useTaskListAnimations';
+import { gradient } from '../../theme/images';
 
 
 interface HeaderProps {
@@ -18,8 +19,7 @@ const HeaderContainer = ({children , scrollY = new Animated.Value(0),title,float
   return (
     <Animated.View style={[styles.container,styles.shadow, {height:headerHeight, position:floating?'absolute':'relative'}]}>
       <LinearGradient colors={['#DAFBE6','#ffffff','#F5FAE1']}   start={{x: 0.0, y: 0.5}} end={{x: 1, y: 0.0}}
- style={[{flex:1, position:'absolute', width:'100%', top:0, right:0,bottom:0,left:0, alignSelf:'stretch',  borderBottomLeftRadius: 40,
-  borderBottomRightRadius: 40,}]}>
+ style={styles.gradient}>
 
       <>
       <HeaderTitle title={title}/>
@@ -64,6 +64,18 @@ const HeaderContainer = ({children , scrollY = new Animated.Value(0),title,float
       justifyContent:'center',
       alignItems:'center',
       paddingHorizontal:20
+    },
+    gradient:{
+      flex:1, 
+      position:'absolute', 
+      width:'100%', 
+      top:0, 
+      right:0,
+      bottom:0,
+      left:0, 
+      alignSelf:'stretch',  
+      borderBottomLeftRadius: 40,
+      borderBottomRightRadius: 40,
     }
   });
 export default HeaderContainer

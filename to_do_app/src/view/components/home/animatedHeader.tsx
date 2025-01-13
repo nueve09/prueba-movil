@@ -16,13 +16,13 @@ interface headerProps {
 
 const animatedHeader = ({scrollY}:headerProps) => {
 
-  const { headerHeight, imageHeight ,imageOpacity} = useTaskListAnimations(scrollY)
+  const { imageHeight ,imageOpacity} = useTaskListAnimations(scrollY)
   const { setValueToFind, valueToFind } = useTaskViewModel();
   const navigation = useNavigation<StackNavigationProp<RootStackParamList,'Task'>>();
 
   return (
     <HeaderContainer title='Organizador de tareas' floating={true} scrollY={scrollY}>
-      <View style={{flex:1, width:'100%',height:'100%', justifyContent:'space-between'}}>
+      <View style={styles.imageContainer}>
         <View style={{ flex:1, justifyContent:'center'}}>
           <Animated.Image source={shcedule} style={[styles.imageSchedule,{ opacity: imageOpacity,height: imageHeight  }]} />
         </View>
@@ -81,6 +81,12 @@ const styles = StyleSheet.create({
       marginVertical:10,
       resizeMode:'contain',
     },
+    imageContainer:{
+        flex:1, 
+        width:'100%',
+        height:'100%',
+        justifyContent:'space-between'
+    }
   })
 
 export default animatedHeader

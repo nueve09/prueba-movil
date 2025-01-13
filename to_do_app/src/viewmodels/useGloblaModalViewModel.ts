@@ -4,15 +4,24 @@ import { removeTask } from '../store/slices/task/taskSlice';
 import { hideModal } from '../store/slices/modal/modalSlice';
 import { TaskApi } from '../api/TaskApiSlice';
 import { AppDispatch, RootState } from '../store/store';
+import { useEffect } from 'react';
+import { useSessionViewModel } from './useSessionViewModel';
 
 
 export const useGloblaModalViewModel = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { filteredList} = useSelector((state:RootState) => state.task);
     const { params , visible } = useSelector((state:RootState) => state.modal);
+    const { logout } = useSessionViewModel()
 
+    
+    useEffect(()=>{
+      console.log(visible)
+    },[
+      visible
+    ])
     const removeItem = (onHide:()=>void) => {
-      if(!params?.taskId)return dispatch(setLogOut())
+      if(!params?.taskId)return logout();
         const newFilteredList = filteredList.filter(task=> task.id !== params!.taskId)
         dispatch(removeInCacheData())
         dispatch(removeTask({filteredList:newFilteredList}))
