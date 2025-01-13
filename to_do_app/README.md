@@ -1,79 +1,71 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Getting Started
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
-## Step 1: Start the Metro Server
+# Prueba Tecnica React Native
+El proyecto fue realizado en [**React Native**](https://reactnative.dev)  utilizando React Native Cli, este proyecto tiene como objetivo la creación, consulta , edicion y eliminacion de tareas obtenidas de este [**origen**](https://jsonplaceholder.typicode.com/todos).
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+# Acerca del proyecto
 
-To start Metro, run the following command from the _root_ of your React Native project:
 
-```bash
-# using npm
-npm start
+## Gestion de estado global
 
-# OR using Yarn
-yarn start
-```
+El proyecto utiliza React-Redux y Redux Toolkit para gestionar el estado global de la aplicación y hace uso de RTK Query para realizar peticiones HTTP.Tambien se hace uso de react-navigation para el manejo de la navegación entre pantallas.
 
-## Step 2: Start your Application
+## Arquitectura 
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+Se opta por la arquitectura MVVM para la separación de responsabilidades, de forma que los componentes visuales solo se encargan de mostrar los datos, haciendo uso de ViewModels para la gestión de la lógica de negocio.
 
-### For Android
+De igual forma, se usan algunos conceptos de Clean Architecture, como las entidades, las cuales nos sirven para tener un tipado de objetos utilizando interfaces de TypeScript (TS), lo que nos ayuda a mantener la consistencia en los datos obtenidos de las peticiones. También se utilizan las fuentes de datos, con las que podemos separar la lógica de obtención de los datos, y los repositorios, que nos ayudan a exponer nuestras fuentes de datos a la capa de presentación (o en este caso, la capa de Vista), donde también podemos hacer uso de los mappers para convertir los datos obtenidos y hacerlos utilizables.
 
-```bash
-# using npm
-npm run android
+## Descripción de las carpetas
+## App.tsx
+Es el punto de entrada de la aplicación en el cual integramos las configuraciones para Redux.
 
-# OR using Yarn
-yarn android
-```
+### Main.tsx
+ Es nuestro contenedor principal, donde se gestiona si hay una sesión iniciada o no.
 
-### For iOS
+## Api 
+Carpeta donde están los archivos dedicados a la obtención de datos.
 
-```bash
-# using npm
-npm run ios
+## Assets 
+Carpeta donde están los archivos, como imágenes, que sirven para el diseño de la app.
 
-# OR using Yarn
-yarn ios
-```
+## Entities 
+Carpeta donde están las interfaces de las entidades con las que trabaja la aplicación.
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## Helpers 
+Carpeta donde están las funciones que nos ayudan a modificar los datos obtenidos de los orígenes de datos.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+## Hooks 
+Carpeta donde se encuentran los hooks personalizados, separando la lógica del manejo del estado del componente.
 
-## Step 3: Modifying your App
+## models 
+Carpeta donde se encuentran las interfaces de los modelos que obtenemos de los orígenes de datos.
 
-Now that you have successfully run the app, let's modify it.
+## Store 
+Carpeta donde se encuentran las configuraciones del estado global de la aplicación usando Redux Toolkit y React Redux.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+## View 
+Carpeta donde se encuentran las pantallas, componentes, configuración de la navegación, configuración del tema y funciones útiles.
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+## ViewModels 
+Carpeta que almacena los ViewModels que se encargan de gestionar la lógica de negocio de la aplicación.
 
-## Congratulations! :tada:
+## Explicacion de pantallas
+La vista está dividida en 3 pantallas principales, las cuales son: Login, Home y Task.
 
-You've successfully run and modified your React Native App. :partying_face:
+Dentro de la app se usa un Modal que nos permite mostrar advertencias al usuario sobre las acciones a realizar, como cerrar sesión o borrar una tarea.
 
-### Now what?
+   ### Login
+   En esta pantalla nos encontramos con la pantalla inicial de la aplicación, la cual nos permite ingresar nuestras credenciales para poder iniciar sesión.
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+   Está separada en 2 componentes: el componente LoginForm, que se encarga de mostrar el formulario para ingresar las credenciales, y un contenedor con el ícono principal.
 
-# Troubleshooting
+   ### Home
+   Esta pantalla se divide en 2 componentes: el componente AnimatedHeader, que tiene una barra de título y un ícono para salir de la sesión, y también muestra un formulario para hacer búsquedas de las tareas. Luego está el componente TaskList, que nos muestra la lista de nuestras tareas, las cuales se visualizan en forma de tarjetas.
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+   ### Task
+   En esta pantalla se nos muestra un header con una imagen y una barra de título que cambia en función de la acción que deseemos realizar, ya sea editar o agregar una tarea. Abajo de este header vemos un formulario que nos permite introducir los datos de nuestra tarea.
 
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+   ### Modal
+   Este componente se muestra en los casos en los que queramos borrar una tarea o cerrar sesión. Está compuesto por un título, un mensaje de advertencia y 2 botones de acción: uno que oculta el modal sin realizar la operación, y el otro para aceptar y realizar la operación.
