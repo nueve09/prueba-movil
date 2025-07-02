@@ -33,24 +33,33 @@ const TaskScreen = ({ navigation }: any) => {
   const [page, setPage] = useState(1);
 
   const filtered = useMemo(() => {
-    let result = tasks || [];
+    let base = tasks || [];
 
     if (userId !== 0) {
-      result = result.filter(t => t.userId === userId);
+      base = base.filter(t => t.userId === userId);
     }
 
-    if (search.trim()) {
-      const q = search.toLowerCase();
-      result = result.filter(
-        t =>
-          t.title.toLowerCase().includes(q) ||
-          t.userId.toString().includes(q) ||
-          (q === 'completada' && t.completed) ||
-          (q === 'incompleta' && !t.completed),
-      );
+    if (!search.trim()) {
+      return base;
     }
 
-    return result;
+    const q = search.trim().toLowerCase();
+    const numQ = Number(q);
+
+    return base.filter(t => {
+      if (q === 'completada') {
+        return t.completed;
+      }
+      if (q === 'incompleta') {
+        return !t.completed;
+      }
+
+      if (!Number.isNaN(numQ)) {
+        return t.id === numQ || t.userId === numQ;
+      }
+
+      return t.title.toLowerCase().includes(q);
+    });
   }, [tasks, search, userId]);
 
   const total = Math.ceil(filtered.length / TASKS_PER_PAGE) || 1;
